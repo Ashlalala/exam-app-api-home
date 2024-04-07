@@ -13,11 +13,15 @@ class QAController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param int $examId
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($examId)
     {
-        return new QACollection(QA::all());
+        return new QACollection(
+            QA::where('exam_id', '=', $examId)->
+                where('type', '=', 'full')->latest()->get()
+        );
     }
 
     /**
@@ -33,22 +37,30 @@ class QAController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param int $examId
+     *
      * @param  \App\Http\Requests\StoreQARequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreQARequest $request)
+    public function store(StoreQARequest $request, $examId)
     {
         $request->validate([
             'exam_id' => 'nullable', //change this to required
             'question' => 'required|max:465',
             'ans_r' => 'required|max:455',
-            'ans_w_1' => 'nullable|max:455',
-            'ans_w_2' => 'nullable|max:455',
-            'ans_w_3' => 'nullable|max:455',
-            'ans_w_4' => 'nullable|max:455',
+            'type' => 'nullable',
+            'ans_1' => 'nullable|max:455', // if(type=='full') required
+            'ans_2' => 'nullable|max:455',
+            'ans_3' => 'nullable|max:455',
+            'ans_4' => 'nullable|max:455',
+            'ans_5' => 'nullable|max:455',
         ]);
 
-        return QA::create($request->all());
+        $requestData = $request->all();
+
+        //add exam_id from the html link prop
+
+        return QA::create($requestData);
     }
 
     /**

@@ -12,8 +12,10 @@ class ExamController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
      * @param string $category
      * @param string $subCategory
+     *
      *
      * @return \Illuminate\Http\Response
      */
@@ -24,7 +26,6 @@ class ExamController extends Controller
                 ->where('sub_category', '=', $subCategory)
                 ->get()
         );
-        // return new ExamCollection(Exam::all());
     }
 
     /**
@@ -52,8 +53,6 @@ class ExamController extends Controller
             'user_id' => 'nullable|max:100', //change
             'name' => 'required|max:100',
             'description' => 'nullable|max:500',
-            // 'category' => 'required|max:100',
-            // 'sub_category' => 'required|max:100',
         ]);
 
         $requestData = $request->all();
@@ -61,6 +60,7 @@ class ExamController extends Controller
 
         $requestData['category'] = $category;
         $requestData['sub_category'] = $subCategory;
+
 
         return Exam::create($requestData);
     }

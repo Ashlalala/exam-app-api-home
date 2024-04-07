@@ -36,8 +36,6 @@ class CatController extends Controller
      */
     public function store(StoreCatRequest $request)
     {
-
-
         $request->validate([
             'user_id' => 'nullable|max:100', //change
             'name' => 'required|max:100',

@@ -12,6 +12,7 @@ class SubCatController extends Controller
      * Display a listing of the resource.
      *
      * @param string $category
+     *
      * @return \Illuminate\Http\Response
      */
     public function index($category)

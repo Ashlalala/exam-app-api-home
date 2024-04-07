@@ -14,4 +14,7 @@ class QA extends Model
     public function exam(){
         return $this->belongsTo(Exam::class);
     }
+    public function qagroup(){
+        return $this->belongsTo(QAGroup::class);
+    }
 }
